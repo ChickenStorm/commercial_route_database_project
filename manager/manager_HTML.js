@@ -119,12 +119,12 @@ function drawInterfaceInit(){
     $("liste1Container").style.left ="100px"
     $("liste1Container").style.top = "350px"
     //$("liste1Container").style.width = "500px"
-    $("liste1Container").innerHTML = "<input id=input1> <button onclick='searchListe1()'> chercher;</button> : <select style=';' id='field1'> <option value='playerName'>nom du joueur</option> <option value='name'>nom</option> </select>   <input type=checkBox id=checkBox1> Regular expression <div id=list1></div>"
+    $("liste1Container").innerHTML = "<input id=input1> <button onclick='searchListe1()'> chercher</button> : <select style=';' id='field1'> <option value='playerName'>nom du joueur</option> <option value='name'>nom</option> </select>   <input type=checkBox id=checkBox1> Regular expression <div id=list1></div>"
     
     $("liste2Container").style.left ="700px"
     $("liste2Container").style.top = "350px"
     //$("liste2Container").style.width = "10px"
-    $("liste2Container").innerHTML = "<input id=input2>  <button onclick='searchListe2()'> chercher;</button> : <select style=';' id='field2'> <option value='playerName'>nom du joueur</option> <option value='name'>nom</option> </select>  <input type=checkBox id=checkBox2> Regular expression <div id=list2></div>"
+    $("liste2Container").innerHTML = "<input id=input2>  <button onclick='searchListe2()'> chercher</button> : <select style=';' id='field2'> <option value='playerName'>nom du joueur</option> <option value='name'>nom</option> </select>  <input type=checkBox id=checkBox2> Regular expression <div id=list2></div>"
     
     
     $("commRoutesTable").style.left ="1400px";
@@ -178,5 +178,5 @@ function drawCommRouteTable(container,array){
         
     }
     
-    container.innerHTML = "<button onclick='computeCommRoutes()'> calculer; </button>"+getHTMLTable(arrayToDraw,styleArrayToDraw)
+    container.innerHTML = "<button onclick='computeCommRoutes()'> calculer </button>"+getHTMLTable(arrayToDraw,styleArrayToDraw)
 }
