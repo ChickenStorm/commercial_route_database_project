@@ -172,7 +172,7 @@ function drawCommRouteTable(container,array){
     
     for (var i in array){
         
-        arrayToDraw.push([array[i].p1Name,array[i].p2Name,array[i].b1Name,array[i].b2Name,array[i].dist,array[i].income,array[i].pop,array[i].price]);
+        arrayToDraw.push([array[i].p1Name,array[i].p2Name,array[i].b1Name,array[i].b2Name,array[i].dist,array[i].income,array[i].pop/1000000,array[i].price]);
         styleArrayToDraw.push(["","","","","","",""]);
         
         
