@@ -128,6 +128,27 @@ function buttonFunction(){
         
         
         ////////////////////////////////////////////////////////////////////////////////////////////
+        
+        for(var i in d){ // recherche dans les elements
+            if (d[i].className == "info bottom") {
+                //alert(i)
+                idDiva = i;
+            }
+        }
+        //text1 = ""
+        var texta = d[idDiva].innerHTML;
+        
+        pos1 = texta.search("<strong>");
+        pos2 = texta.search("</strong>");
+        
+        texta = texta.substring(pos1+8,pos2);
+        for(var i = 0 ;i<2;++i){
+            texta = texta.replace(" ","");
+        }
+        
+        //alert(texta+":"+parseInt(texta));
+        data["pop"] = parseInt(texta);
+        ////////////////////////////////////////////////////////////////////////////////////////////
         var text3 = document.getElementsByTagName("head")[0].innerHTML;
         //alert(text3)
         pos1 = text3.search("<title>");

@@ -139,7 +139,7 @@ function drawInterface(){
     drawPlanetList($("list1"),planetArray1);
     drawPlanetList($("list2"),planetArray2);
     
-    darwCommRouteTable($("commRoutesTable"),commRoutesArray)
+    drawCommRouteTable($("commRoutesTable"),commRoutesArray)
 }
 
 function drawPlanetList(listeContainer,array){
@@ -166,14 +166,14 @@ function drawPlanetList(listeContainer,array){
 }
 
 
-function darwCommRouteTable(container,array){
-    var arrayToDraw = [["joueur 1","joueur 2","base 1" ,"base 2","distance","revenu","pop total"]];
-    var styleArrayToDraw = [["","","","","","","",""]];
+function drawCommRouteTable(container,array){
+    var arrayToDraw = [["joueur 1","joueur 2","base 1" ,"base 2","distance","revenu","pop total","prix"]];
+    var styleArrayToDraw = [["","","","","","","","",""]];
     
     for (var i in array){
         
-        arrayToDraw.push([array[i].p1Name,array[i].p2Name,array[i].b1Name,array[i].b2Name,array[i].dist,array[i].income,array[i].pop]);
-        styleArrayToDraw.push(["","","","","",""]);
+        arrayToDraw.push([array[i].p1Name,array[i].p2Name,array[i].b1Name,array[i].b2Name,array[i].dist,array[i].income,array[i].pop,array[i].price]);
+        styleArrayToDraw.push(["","","","","","",""]);
         
         
     }
