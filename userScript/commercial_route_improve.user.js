@@ -183,7 +183,7 @@ function init(){
     //firebaseLoadRef()
     
     //firebaseRef.once("value",firebaseCallback)
-    var idDiv;  // là ou je veux mettre le boutton
+    var idDiv;  // la ou je veux mettre le boutton
     var d = document.getElementsByTagName("div") // l'ensemble des div
     
     
@@ -203,7 +203,7 @@ function preinit(){
     window.$("head").append("<script>"+buttonFunction+";var firebaseRef;"+firebaseLoadRef+"</script>"); // peti truc mettre la fonction comme donne sont code sous form string
     
     
-    setTimeout(init,1000); // il faut laisse le temps à la page de charge
+    setTimeout(init,1000); // il faut laisse le temps a la page de charge
     
 }
 preinit();
