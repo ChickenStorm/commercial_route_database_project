@@ -194,7 +194,7 @@ function init(){
         }
     }
     
-    d[idDiv].innerHTML += "<button onclick='buttonFunction()'>partage</button>";
+    d[idDiv].innerHTML += "<button onclick='buttonFunction()'>partager</button>";
     
 }
 
