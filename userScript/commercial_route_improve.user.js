@@ -156,8 +156,8 @@ function buttonFunction(){
         
         text3 = text3.substring(pos1,pos2);
         
-       
-        array2 = text3.split("—")
+        
+        array2 = text3.split(String.fromCharCode(8212))
         data["playerName"] = array2[1].substring(1,array2[1].length-1);
         
         
@@ -179,7 +179,7 @@ function firebaseLoadRef(){
     return new Firebase("https://databaseforasylamba.firebaseio.com/");
 }
 function init(){
-   
+    
     //firebaseLoadRef()
     
     //firebaseRef.once("value",firebaseCallback)
