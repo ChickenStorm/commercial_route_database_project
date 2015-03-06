@@ -157,7 +157,9 @@ function drawPlanetList(listeContainer,array){
     
     for (var i in array){
         
-        arrayToDraw.push([array[i]["name"],array[i]["playerName"],array[i]["pop"]/1000000,array[i]["secteur"],getFactionName(array[i]["faction"]),array[i]["id"]]);
+        //http://game.asylamba.com/beta/map/place-13439
+        //target="_blank"
+        arrayToDraw.push(["<a target='_blank' href='http://game.asylamba.com/beta/map/place-"+array[i]["id"]+"'>"+array[i]["name"]+"</a> ",array[i]["playerName"],array[i]["pop"]/1000000,array[i]["secteur"],getFactionName(array[i]["faction"]),array[i]["id"]]);
         styleArrayToDraw.push(["","","","","background-color :"+getFactionColor(array[i]["faction"]),""]);
         
         
@@ -176,7 +178,7 @@ function drawCommRouteTable(container,array){
     
     for (var i in array){
         
-        arrayToDraw.push([array[i].p1Name,array[i].p2Name,array[i].b1Name,array[i].b2Name,array[i].dist,array[i].income,array[i].pop/1000000,array[i].price]);
+        arrayToDraw.push([array[i].p1Name,array[i].p2Name,"<a target='_blank' href='http://game.asylamba.com/beta/map/place-"+array[i].b1id+"'>"+array[i].b1Name+"</a> ","<a target='_blank' href='http://game.asylamba.com/beta/map/place-"+array[i].b2id+"'>"+array[i].b2Name+"</a> ",array[i].dist,array[i].income,array[i].pop/1000000,array[i].price]);
         styleArrayToDraw.push(["background-color :"+getFactionColor(array[i].factionId1),"background-color :"+getFactionColor(array[i].factionId2),"","","","",""]);
         
         
