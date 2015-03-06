@@ -63,8 +63,10 @@ function firebaseLoadRef(){
 
 function getDataFormFireBase(callBack){
     //hasFBData = false;
+    clearTimeout(getFBDataTimout);
+    
     if (fBRef != null) {
-        fBRef.off()
+        fBRef.off();
     }
     
     fBRef = firebaseLoadRef();
@@ -104,7 +106,7 @@ function searchListe1(){
 function searchListe1Callback(snapshot){
     
     //alert($("field1").value)
-    planetArray1 = searchListe(snapshot.val()["planetData"],[$("field1").value],[$("input1").value],$("checkBox1").checked);
+    planetArray1 = searchListe(snapshot.val()["planetData"],[$("field1").value],[$("input1").value],$("checkBox1").checked,$("checkBox1CaseS").checked );
    
     
     drawInterface();
@@ -119,16 +121,25 @@ function searchListe2(){
 }
 
 function searchListe2Callback(snapshot){
-    planetArray2 = searchListe(snapshot.val()["planetData"],[$("field2").value],[$("input2").value],$("checkBox2").checked);
+    planetArray2 = searchListe(snapshot.val()["planetData"],[$("field2").value],[$("input2").value],$("checkBox2").checked,$("checkBox2CaseS").checked );
     
     drawInterface();
 }
 
-function searchListe(list,fieldNameArray,searchTextArray,doRegExpInput,arrayToSave){ 
+function searchListe(list,fieldNameArray,searchTextArray,doRegExpInput,isCaseSensitive){ 
     var regExpArray = [];
     
     arrayToSave  = null;
     arrayToSave = [];
+    
+    if (! isCaseSensitive) {
+        for (var i in searchTextArray){
+            searchTextArray[i] = searchTextArray[i].toLowerCase()
+            
+            
+            
+        }
+    }
     
     if (searchTextArray.length != fieldNameArray.length) {
         throw "maivaise entree pour searchListe(...) ";
@@ -146,18 +157,55 @@ function searchListe(list,fieldNameArray,searchTextArray,doRegExpInput,arrayToSa
         
         if (doRegExpInput) {
             for (var j=0;j < regExpArray.length ; ++j) {
-                if (! regExpArray[j].test(list[i][fieldNameArray[j]])) {
-                    matchSearch = false;
+                if (isCaseSensitive) {
+                    
+                    
+                    
+                    if (! regExpArray[j].test(list[i][fieldNameArray[j]])) {
+                        matchSearch = false;
+                    }
+                    
+                    
+                    
+                }
+                else{
+                    
+                    
+                    
+                    if (! regExpArray[j].test(list[i][fieldNameArray[j]].toLowerCase() )) {
+                        matchSearch = false;
+                    }
+                    
+                    
+                    
                 }
             }
         }
         else{
             for (var j=0;j < searchTextArray.length ; ++j) {
                 
-                
-                if (list[i][fieldNameArray[j]] == undefined || list[i][fieldNameArray[j]].search(searchTextArray[j]) == -1 ) {
-                    matchSearch = false;
+                if (isCaseSensitive) {
+                    
+                    
+                    
+                    if (list[i][fieldNameArray[j]] == undefined || list[i][fieldNameArray[j]].search(searchTextArray[j]) == -1 ) {
+                        matchSearch = false;
+                    }
+                    
+                    
+                    
                 }
+                else{
+                    
+                    
+                    
+                    if (list[i][fieldNameArray[j]] == undefined || list[i][fieldNameArray[j]].toLowerCase().search(searchTextArray[j]) == -1 ) {
+                        matchSearch = false;
+                    }
+                    
+                    
+                }
+                
             }
         }
         
@@ -176,6 +224,9 @@ function searchListe(list,fieldNameArray,searchTextArray,doRegExpInput,arrayToSa
 function computeCommRoutes(){
     try{
         commRoutesArray = computeCommRoutesFormArray(planetArray1,planetArray2);
+        
+        commRoutesArray = sort(commRoutesArray,$("sortBy").value)
+        
         drawInterface();
     }
     catch(e){
@@ -189,7 +240,7 @@ function computeCommRoutesFormArray(a1,a2){
         for (var j in a2){
             
             if (a1[i]["id"]!= a2[j]["id"]) {
-                returnRouteCommArray.push(new CommRoute(a1[i]["playerName"],a2[j]["playerName"],a1[i]["name"],a1[j]["name"],getDist(a1[i],a2[j]),getIncome(a1[i],a2[j]),getPop(a1[i],a2[j]),a1[i]["faction"],a2[j]["faction"],a1[i]["id"], a2[j]["id"],getPrice(a1[i],a2[j])))
+                returnRouteCommArray.push(new CommRoute(a1[i]["playerName"],a2[j]["playerName"],a1[i]["name"],a2[j]["name"],getDist(a1[i],a2[j]),getIncome(a1[i],a2[j]),getPop(a1[i],a2[j]),a1[i]["faction"],a2[j]["faction"],a1[i]["id"], a2[j]["id"],getPrice(a1[i],a2[j])))
             }
             
         }
@@ -234,4 +285,85 @@ function getIncome(pla1,pla2){
 
 function getPrice(pla1,pla2) {
     return Math.round(getDist(pla1,pla2)*getPop(pla1,pla2) * 28/Math.pow(10,6));
+}
+
+
+function sort(array,fieldName){ // basic sort
+    
+    for (var i =0; i< array.length;++i){
+        
+        var maxVal = array[i][fieldName];
+        var maxValPos = i;
+        
+        for(var j = i+1; j<array.length ; ++j){
+            if (array[j][fieldName]>maxVal) {
+                maxVal = array[j][fieldName];
+                maxValPos = j;
+                
+            }
+        }
+        //alertArray(array,fieldName)
+        array = arrayMove(array,i,maxValPos);
+        //alertArray(array,fieldName)
+        
+        
+        
+    }
+    
+    return array;
+}
+
+
+
+function arrayMove(array,p1T,p2T){
+    var arrayReturn = []; 
+    var pos1 = p1T
+    var pos2 = p2T
+    if (pos1 > pos2) {
+        var t = pos1
+        
+        pos1 = pos2
+        pos2 = t
+    }
+    
+    
+    if (pos1 != pos2) {
+        
+        arrayReturn= array.slice(0,pos1);
+        
+        arrayReturn.push(array[pos2]);
+        
+        
+        
+        for (var i = pos1+1; i< pos2;++i){
+            arrayReturn.push(array[i]);
+        }
+        arrayReturn.push(array[pos1]);
+        
+        if (pos2 != array.length-1) {
+            for (var i = pos2+1; i< array.length;++i){
+                arrayReturn.push(array[i]);
+            }
+        }
+        
+        
+        return arrayReturn;
+       
+    }
+    else{
+        return array;
+    }
+    
+    
+    
+}
+
+function alertArray(array,fieldName){
+    var arrayTemp = []
+    
+    for (var i in array){
+        arrayTemp.push(array[i][fieldName])
+    }
+    alert(arrayTemp)
+    
 }

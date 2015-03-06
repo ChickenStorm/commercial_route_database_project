@@ -32,7 +32,7 @@ function drawHTMLPage(){
     var HTMLText = " <div style =' position:relative;text-align: center;display: inline-block; ' id='generalInfos' > Version "+ version +" </div> <div style =' position:absolute;text-align: center;display: inline-block;' id='author' > </div>"
     
     HTMLText += " <div style =' position:absolute;display: inline-block; ' id='liste1Container' > </div> <div style =' position:absolute;display: inline-block; ' id='liste2Container' > </div> "
-    HTMLText += "<div style =' position:absolute;display: inline-block; ' id='commRoutesTable' > </div>"
+    HTMLText += "<div id='commRoutesTableCointainer' style ='position:absolute;display: inline-block;' >  </div>"
     
     
     $("body").innerHTML += HTMLText;
@@ -102,7 +102,7 @@ function getFactionColor(id){
 
 function drawInterfaceInit(){
    
-    
+   
     
     $("generalInfos").style.top = "20px";
     $("generalInfos").style.left = "300px";
@@ -119,16 +119,20 @@ function drawInterfaceInit(){
     $("liste1Container").style.left ="100px"
     $("liste1Container").style.top = "350px"
     //$("liste1Container").style.width = "500px"
-    $("liste1Container").innerHTML = "<input id=input1> <button onclick='searchListe1()'> chercher</button> : <select style=';' id='field1'> <option value='playerName'>nom du joueur</option> <option value='name'>nom</option> </select>   <input type=checkBox id=checkBox1> Regular expression <div id=list1></div>"
+    $("liste1Container").innerHTML = "<input id=input1> <button onclick='searchListe1()'> chercher</button> : <select style=';' id='field1'> <option value='playerName'>nom du joueur</option> <option value='name'>nom</option> </select>  <br> <input type=checkBox id=checkBox1> Regular expression <input type=checkBox id=checkBox1CaseS> case sensitive <div id=list1></div>"
     
     $("liste2Container").style.left ="700px"
     $("liste2Container").style.top = "350px"
     //$("liste2Container").style.width = "10px"
-    $("liste2Container").innerHTML = "<input id=input2>  <button onclick='searchListe2()'> chercher</button> : <select style=';' id='field2'> <option value='playerName'>nom du joueur</option> <option value='name'>nom</option> </select>  <input type=checkBox id=checkBox2> Regular expression <div id=list2></div>"
+    $("liste2Container").innerHTML = "<input id=input2>  <button onclick='searchListe2()'> chercher</button> : <select style=';' id='field2'> <option value='playerName'>nom du joueur</option> <option value='name'>nom</option> </select>  <br><input type=checkBox id=checkBox2> Regular expression <input type=checkBox id=checkBox2CaseS> case sensitive <div id=list2></div>"
     
     
-    $("commRoutesTable").style.left ="1400px";
-    $("commRoutesTable").style.top = "350px";
+    $("commRoutesTableCointainer").style.left ="1400px";
+    $("commRoutesTableCointainer").style.top = "350px";
+    $("commRoutesTableCointainer").innerHTML = "<button onclick='computeCommRoutes()'> calculer </button> trier par <select style=';' id='sortBy'> <option value='income'>revenu </option>  </select> <br> <div style =' position:absolute;display: inline-block; ' id='commRoutesTable' > </div>" 
+     //
+    //commRoutesTableCointainer
+    
     // drawPlanetList($("list1"),planetArray1);
     // drawPlanetList($("list2"),planetArray2);
     
@@ -147,14 +151,14 @@ function drawPlanetList(listeContainer,array){
     
     
     
-    var arrayToDraw = [["nom","nom du joeur","pos X","pos Y","sys pos","secteur","faction","id"]];
+    var arrayToDraw = [["nom","nom du joeur","pop","secteur","faction","id"]];
     var styleArrayToDraw = [["","","","","","","",""]];
     
     
     for (var i in array){
         
-        arrayToDraw.push([array[i]["name"],array[i]["playerName"],array[i]["posX"],array[i]["posY"],array[i]["posZ"],array[i]["secteur"],getFactionName(array[i]["faction"]),array[i]["id"]]);
-        styleArrayToDraw.push(["","","","","","","background-color :"+getFactionColor(array[i]["faction"]),""]);
+        arrayToDraw.push([array[i]["name"],array[i]["playerName"],array[i]["pop"]/1000000,array[i]["secteur"],getFactionName(array[i]["faction"]),array[i]["id"]]);
+        styleArrayToDraw.push(["","","","","background-color :"+getFactionColor(array[i]["faction"]),""]);
         
         
         
@@ -167,16 +171,17 @@ function drawPlanetList(listeContainer,array){
 
 
 function drawCommRouteTable(container,array){
-    var arrayToDraw = [["joueur 1","joueur 2","base 1" ,"base 2","distance","revenu","pop total","prix"]];
+    var arrayToDraw = [["joueur_1","joueur_2","base 1" ,"base 2","distance","revenu","pop_total","prix"]];
     var styleArrayToDraw = [["","","","","","","","",""]];
     
     for (var i in array){
         
         arrayToDraw.push([array[i].p1Name,array[i].p2Name,array[i].b1Name,array[i].b2Name,array[i].dist,array[i].income,array[i].pop/1000000,array[i].price]);
-        styleArrayToDraw.push(["","","","","","",""]);
+        styleArrayToDraw.push(["background-color :"+getFactionColor(array[i].factionId1),"background-color :"+getFactionColor(array[i].factionId2),"","","","",""]);
         
         
     }
     
-    container.innerHTML = "<button onclick='computeCommRoutes()'> calculer </button>"+getHTMLTable(arrayToDraw,styleArrayToDraw)
+    container.innerHTML = getHTMLTable(arrayToDraw,styleArrayToDraw)
+    container.style.width="1000px"
 }
