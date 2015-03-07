@@ -1,7 +1,7 @@
 
 
 
-var version = "0.0.2";
+var version = "0.0.2.1";
 
 var fBRef = null
 
@@ -226,8 +226,8 @@ function computeCommRoutes(){
         commRoutesArray = computeCommRoutesFormArray(planetArray1,planetArray2);
         
         commRoutesArray = sort(commRoutesArray,$("sortBy").value)
-        
-        drawInterface();
+        drawCommRouteTable($("commRoutesTable"),commRoutesArray)
+        //drawInterface();
     }
     catch(e){
         alert(e);

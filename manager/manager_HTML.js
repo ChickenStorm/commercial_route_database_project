@@ -143,7 +143,7 @@ function drawInterface(){
     drawPlanetList($("list1"),planetArray1);
     drawPlanetList($("list2"),planetArray2);
     
-    drawCommRouteTable($("commRoutesTable"),commRoutesArray)
+    //drawCommRouteTable($("commRoutesTable"),commRoutesArray)
 }
 
 function drawPlanetList(listeContainer,array){
