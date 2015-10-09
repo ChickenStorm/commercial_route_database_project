@@ -1,0 +1,1 @@
+Ah, petit bug, dans table1 je recherche le nom d'une plante (Donc que une ligne) dans table 2 je recherche le nom d'un joueur (plein de lignes) et calculer renvoie: TypeError: Cannot read property 'name' of undefined
